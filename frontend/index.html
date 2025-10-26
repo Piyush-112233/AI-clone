@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinguaSpark AI 🌟</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌟</text></svg>">
+</head>
+<body>
+    <!-- Login/Signup Screen -->
+    <div id="authScreen" class="auth-screen">
+        <div class="auth-container">
+            <h1>🌟 LinguaSpark AI</h1>
+            <p class="tagline">Gamified Language Learning with AI</p>
+
+            <!-- Login Form -->
+            <div id="loginForm" class="auth-form">
+                <h2>Login</h2>
+                <input type="text" id="loginUsername" placeholder="Username">
+                <input type="password" id="loginPassword" placeholder="Password">
+                <button onclick="login()">Login</button>
+                <p class="switch-form">Don't have an account? <a onclick="showSignup()">Sign up</a></p>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signupForm" class="auth-form" style="display:none;">
+                <h2>Create Account</h2>
+                <input type="text" id="signupUsername" placeholder="Username">
+                <input type="email" id="signupEmail" placeholder="Email">
+                <input type="password" id="signupPassword" placeholder="Password">
+                <button onclick="signup()">Sign Up</button>
+                <p class="switch-form">Already have an account? <a onclick="showLogin()">Login</a></p>
+            </div>
+
+            <div id="authMessage" class="auth-message"></div>
+        </div>
+    </div>
+
+    <!-- Chat Screen - Full Screen Modern UI -->
+    <div id="chatScreen" class="chat-screen" style="display:none;">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="app-logo">🌟 LinguaSpark</h1>
+                <p class="app-subtitle">AI Language Tutor</p>
+            </div>
+
+            <!-- User Profile Section -->
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <span id="userInitial">U</span>
+                </div>
+                <div class="user-details">
+                    <span id="usernameDisplay" class="user-name"></span>
+                    <span class="user-level">Level <span id="userLevel">1</span></span>
+                </div>
+            </div>
+
+            <!-- Progress Section -->
+            <div class="progress-section">
+                <div class="progress-header">
+                    <span class="progress-label">XP Progress</span>
+                    <span class="progress-points"><span id="userPoints">0</span>/<span id="nextLevelPoints">100</span></span>
+                </div>
+                <div class="progress-bar">
+                    <div id="progressFill" class="progress-fill" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Feature Tools -->
+            <div class="sidebar-tools">
+                <button onclick="showGrammarCheck()" class="tool-btn">
+                    <span class="tool-icon">✅</span>
+                    <span class="tool-text">Grammar Check</span>
+                    <span class="tool-xp">+15 XP</span>
+                </button>
+                <button onclick="showVocabulary()" class="tool-btn">
+                    <span class="tool-icon">📚</span>
+                    <span class="tool-text">Vocabulary</span>
+                    <span class="tool-xp">+20 XP</span>
+                </button>
+                <button onclick="showDashboard()" class="tool-btn">
+                    <span class="tool-icon">�</span>
+                    <span class="tool-text">Dashboard</span>
+                    <span class="tool-xp"></span>
+                </button>
+            </div>
+
+            <!-- Stats Footer -->
+            <div class="sidebar-footer">
+                <div class="stat-item">
+                    <span class="stat-icon">🔥</span>
+                    <span class="stat-text"><span id="streakDays">0</span> day streak</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">🏆</span>
+                    <span class="stat-text"><span id="achievementCount">0</span> achievements</span>
+                </div>
+                <button onclick="logout()" class="logout-btn">
+                    <span>🚪</span>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Chat Area -->
+        <div class="main-chat-area">
+            <!-- Chat Header -->
+            <div class="chat-header">
+                <div class="chat-title">
+                    <h2>AI Language Tutor</h2>
+                    <p class="chat-subtitle">Practice and improve your <span id="learningLang">Spanish</span></p>
+                </div>
+                
+                <!-- Language Selection -->
+                <div class="language-section">
+                    <div class="lang-selector">
+                        <label>I speak</label>
+                        <select id="userLang" onchange="saveLanguagePreference()">
+                            <option value="English">🇺🇸 English</option>
+                            <option value="Spanish">🇪🇸 Spanish</option>
+                            <option value="French">🇫🇷 French</option>
+                            <option value="German">🇩🇪 German</option>
+                            <option value="Italian">🇮🇹 Italian</option>
+                            <option value="Portuguese">🇵🇹 Portuguese</option>
+                            <option value="Chinese">🇨🇳 Chinese</option>
+                            <option value="Japanese">🇯🇵 Japanese</option>
+                            <option value="Korean">🇰🇷 Korean</option>
+                            <option value="Hindi">🇮🇳 Hindi</option>
+                        </select>
+                    </div>
+                    <div class="lang-selector">
+                        <label>Learning</label>
+                        <select id="targetLang" onchange="saveLanguagePreference()">
+                            <option value="Spanish">🇪🇸 Spanish</option>
+                            <option value="French">🇫🇷 French</option>
+                            <option value="German">🇩🇪 German</option>
+                            <option value="Italian">🇮🇹 Italian</option>
+                            <option value="English">🇺🇸 English</option>
+                            <option value="Portuguese">🇵🇹 Portuguese</option>
+                            <option value="Chinese">🇨🇳 Chinese</option>
+                            <option value="Japanese">🇯🇵 Japanese</option>
+                            <option value="Korean">🇰🇷 Korean</option>
+                            <option value="Hindi">🇮🇳 Hindi</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Messages Container -->
+            <div id="chatBox" class="chat-messages">
+                <div class="welcome-card">
+                    <div class="welcome-icon">🎉</div>
+                    <h3>Welcome to LinguaSpark AI!</h3>
+                    <p>Start your language learning journey and earn XP with every interaction!</p>
+                    <div class="welcome-tips">
+                        <div class="tip-item">� <span>Chat messages: +10 XP</span></div>
+                        <div class="tip-item">✅ <span>Grammar check: +15 XP</span></div>
+                        <div class="tip-item">📚 <span>Vocabulary: +20 XP</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="chat-input-container">
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="userInput" 
+                        placeholder="Type your message here..." 
+                        onkeypress="if(event.key==='Enter' && !event.shiftKey) { event.preventDefault(); sendMessage(); }"
+                    >
+                    <button onclick="sendMessage()" id="sendBtn" class="send-btn">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M2 10L18 10M18 10L11 3M18 10L11 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <p class="input-hint">Press Enter to send • Shift + Enter for new line</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grammar Check Modal -->
+    <div id="grammarModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeGrammarCheck()">&times;</span>
+            <h2>✅ Grammar Check <span class="xp-badge">+15 XP</span></h2>
+            <p>Type a sentence to check for grammar mistakes:</p>
+            <textarea id="grammarInput" placeholder="Example: I goes to school yesterday"></textarea>
+            <button onclick="checkGrammar()" class="modal-btn">Check Grammar</button>
+            <div id="grammarResult" class="result-box"></div>
+        </div>
+    </div>
+
+    <!-- Vocabulary Modal -->
+    <div id="vocabModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeVocabulary()">&times;</span>
+            <h2>📚 Vocabulary Explanation <span class="xp-badge">+20 XP</span></h2>
+            <p>Enter a word to get detailed explanation:</p>
+            <input type="text" id="vocabInput" placeholder="Example: beautiful">
+            <button onclick="explainVocabulary()" class="modal-btn">Explain Word</button>
+            <div id="vocabResult" class="result-box"></div>
+        </div>
+    </div>
+
+    <!-- 🆕 NEW: Dashboard Modal -->
+    <div id="dashboardModal" class="modal" style="display:none;">
+        <div class="modal-content dashboard-modal">
+            <span class="close" onclick="closeDashboard()">&times;</span>
+            <h2>📊 Your Progress Dashboard</h2>
+            
+            <!-- Stats Overview -->
+            <div class="dashboard-section">
+                <h3>📈 Your Stats</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">💬</div>
+                        <div class="stat-value" id="dashTotalMessages">0</div>
+                        <div class="stat-label">Total Messages</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📚</div>
+                        <div class="stat-value" id="dashWordsLearned">0</div>
+                        <div class="stat-label">Words Learned</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🏆</div>
+                        <div class="stat-value" id="dashLevel">1</div>
+                        <div class="stat-label">Current Level</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🔥</div>
+                        <div class="stat-value" id="dashStreak">0</div>
+                        <div class="stat-label">Day Streak</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Achievements -->
+            <div class="dashboard-section">
+                <h3>🏅 Achievements</h3>
+                <div id="achievementsList" class="achievements-list">
+                    <!-- Filled by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Weekly Insights -->
+            <div class="dashboard-section">
+                <h3>💡 Weekly Insights</h3>
+                <div id="weeklyInsights" class="insights-box">
+                    <p class="loading">Loading insights...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

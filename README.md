@@ -4,8 +4,9 @@
 
 LinguaSpark is an AI-powered language learning platform that helps you learn new languages through natural conversation. Using advanced AI (Groq's Llama 3.3), it provides real-time translations, contextual explanations, and personalized teaching.
 
----
-
+---**
+Video lInk** -https://drive.google.com/file/d/1Opym2ZSVZSH0-EnicZPabVOF4kQBjxBB/view?usp=drive_link
+github
 ## ✨ Features
 
 - 🤖 **AI-Powered Teaching** - Natural language learning with Groq's Llama 3.3 70B
